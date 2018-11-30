@@ -1,11 +1,13 @@
 {
   "name": "matrox-monarch",
   "version": "1.0.0",
-  "description": "",
+  "description": "Matrox Monarch",
+  "manufacturer": "Matrox",
+  "product": "Monarch",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Todd Eichel <todd@toddeichel.com>",
+  "license": "MIT"
 }
