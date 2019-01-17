@@ -4,6 +4,7 @@
   "description": "Matrox Monarch",
   "manufacturer": "Matrox",
   "product": "Monarch",
+  "shortname": "Monarch",
   "keywords": [
     "Stream",
     "Encode",
