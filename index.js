@@ -2,6 +2,7 @@ var instance_skel = require('../../instance_skel');
 var debug;
 var log;
 
+const http = require('http');
 const request = require('request');
 
 const ACTIONS = {
@@ -103,6 +104,10 @@ instance.prototype.action = function(action) {
   // Send request
   log('info', 'Starting request to: ' + requestUrl);
   apiRequest.get(requestUrl, function (error, response, body) {
+    self.debug('info', JSON.stringify(error));
+    self.debug('info', JSON.stringify(response));
+    self.debug('info', JSON.stringify(body));
+
     if (error && error.code === 'ETIMEDOUT') {
       self.log('error', 'Connection timeout while connecting to ' + apiHost);
       return;
@@ -111,10 +116,12 @@ instance.prototype.action = function(action) {
       self.log('error', 'Read timeout waiting for response from: ' + requestUrl);
       return;
     }
+    if (response && (response.statusCode < 200 || response.statusCode > 299)) {
+      self.log('error', 'Non-successful response status code: ' + http.STATUS_CODES[response.statusCode]);
+      return;
+    }
 
-    self.log('info', JSON.stringify(error));
-    self.log('info', JSON.stringify(response));
-    self.log('info', JSON.stringify(body));
+    self.log('info', 'Success: ' + action.action);
   });
 };
 
