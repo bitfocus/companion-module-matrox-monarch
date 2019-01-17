@@ -1,7 +1,8 @@
 var instance_skel = require('../../instance_skel');
-var Client  = require('node-rest-client').Client;
 var debug;
 var log;
+
+const request = require('request');
 
 const ACTIONS = {
   'startEncoder1':      { label: 'Start Encoder 1',     apiCommand: 'StartEncoder1' },
@@ -84,34 +85,37 @@ instance.prototype.actions = function(system) {
   self.system.emit('instance_actions', self.id, ACTIONS);
 };
 
-function get(url, options, callback) {
-  var client = new Client(options.client);
-
-  client.get(url, options.args, function (data, response) {
-    callback(null, { data: data, response: response });
-  }).on('error', function(error) {
-    debug('error response:', error);
-    callback(true, { error: error });
-  });
-}
-
 instance.prototype.action = function(action) {
   var self = this;
   var apiHost = self.config.host;
   var apiCommand = ACTIONS[action.action].apiCommand;
   var requestUrl = `http://${apiHost}/Monarch/syncconnect/sdk.aspx?command=${apiCommand}`
 
-  var options = {
-    "client" : { user: self.config.user, password: self.config.password }
-  };
+  // Configure HTTP client
+  var apiRequest = request.defaults({
+    auth: {
+      user: self.config.user,
+      pass: self.config.password
+    },
+    timeout: 10000
+  });
 
   // Send request
-  get(requestUrl, options, function(err, data, response) {
-    if (err) {
-      self.log('error', 'Error from Matrox Monarch: ' + response);
+  log('info', 'Starting request to: ' + requestUrl);
+  apiRequest.get(requestUrl, function (error, response, body) {
+    if (error && error.code === 'ETIMEDOUT') {
+      self.log('error', 'Connection timeout while connecting to ' + apiHost);
       return;
     }
-  }, options.args);
+    if (error && error.connect === true) {
+      self.log('error', 'Read timeout waiting for response from: ' + requestUrl);
+      return;
+    }
+
+    self.log('info', JSON.stringify(error));
+    self.log('info', JSON.stringify(response));
+    self.log('info', JSON.stringify(body));
+  });
 };
 
 instance_skel.extendedBy(instance);
