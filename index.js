@@ -3,6 +3,13 @@ var Client  = require('node-rest-client').Client;
 var debug;
 var log;
 
+const ACTIONS = {
+  'startEncoder1':      { label: 'Start Encoder 1',     apiCommand: 'StartEncoder1' },
+  'startEncoder2':      { label: 'Start Encoder 2',     apiCommand: 'StartEncoder2' },
+  'stopEncoder1':       { label: 'Stop Encoder 1',      apiCommand: 'StopEncoder1'  },
+  'stopEncoder2':       { label: 'Stop Encoder 2',      apiCommand: 'StopEncoder2'  }
+};
+
 function instance(system, id, config) {
   var self = this;
 
@@ -67,96 +74,14 @@ instance.prototype.init_presets = function() {
   var self = this;
   var presets = [];
 
-  presets.push({
-    category: 'Commands',
-    label: 'Start Stream',
-    bank: {
-      style: 'text',
-      test: 'START STREAM',
-      size: '14',
-      color: self.rgb(255, 255, 255),
-      bgcolor: 0
-    },
-    actions: [
-      {
-        action: 'setCommand',
-        options: {
-          startStop: 'Start',
-          encoderNum: 'BothEncoders'
-        }
-      }
-    ]
-  });
-
-  presets.push({
-    category: 'Commands',
-    label: 'Stop Stream',
-    bank: {
-      style: 'text',
-      test: 'STOP STREAM',
-      size: '14',
-      color: self.rgb(255, 255, 255),
-      bgcolor: 0
-    },
-    actions: [
-      {
-        action: 'setCommand',
-        options: {
-          startStop: 'Stop',
-          encoderNum: 'BothEncoders'
-        }
-      }
-    ]
-  });
+  // TODO: presets?
 
   self.setPresetDefinitions(presets);
 };
 
 instance.prototype.actions = function(system) {
   var self = this;
-  self.system.emit('instance_actions', self.id, {
-    'setCommand': {
-      label: 'Set Command',
-      options: [
-        {
-          type: 'dropdown',
-          label: 'Start or Stop',
-          id: 'startStop',
-          default: 'Start',
-          choices: [
-            {
-              id: 'Start',
-              label: 'Start'
-            },
-            {
-              id: 'Stop',
-              label: 'Stop'
-            }
-          ]
-        },
-        {
-          type: 'dropdown',
-          label: 'Set Encoder',
-          id: 'encoderNum',
-          default: 'BothEncoders',
-          choices: [
-            {
-              id: 'Encoder1',
-              label: '1'
-            },
-            {
-              id: 'Encoder2',
-              label: '2'
-            },
-            {
-              id: 'BothEncoders',
-              label: 'Both'
-            }
-          ]
-        }
-      ]
-    }
-  });
+  self.system.emit('instance_actions', self.id, ACTIONS);
 };
 
 function get(url, options, callback) {
@@ -172,33 +97,21 @@ function get(url, options, callback) {
 
 instance.prototype.action = function(action) {
   var self = this;
-  var cmd  = null;
+  var apiHost = self.config.host;
+  var apiCommand = ACTIONS[action.action].apiCommand;
+  var requestUrl = `http://${apiHost}/Monarch/syncconnect/sdk.aspx?command=${apiCommand}`
+
   var options = {
     "client" : { user: self.config.user, password: self.config.password }
   };
-  debug('action: ', action);
 
-  switch (action.action) {
-    case 'setCommand':
-      cmd = action.options.startStop + action.options.encoderNum;
-    default:
-      cmd = 'GetStatus';
-  }
-
-  if (cmd !== undefined) {
-    options.args = {
-        path: { "host": self.config.host, "cmd": cmd },
-        headers: { "Content-Type": "application/json" }
-    };
-
-    // Send request
-    get("http://${host}/Monarch/syncconnect/sdk.aspx?command=${cmd}", options, function(err, data, response) {
-      if (err) {
-        self.log('error', 'Error from Matrox Monarch: ' + response);
-        return;
-      }
-    }, args);
-  }
+  // Send request
+  get(requestUrl, options, function(err, data, response) {
+    if (err) {
+      self.log('error', 'Error from Matrox Monarch: ' + response);
+      return;
+    }
+  }, options.args);
 };
 
 instance_skel.extendedBy(instance);
