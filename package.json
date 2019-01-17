@@ -4,6 +4,7 @@
   "description": "Matrox Monarch",
   "manufacturer": "Matrox",
   "product": "Monarch",
+  "keywords": [ "Stream", "Encode", "Recording" ],
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
