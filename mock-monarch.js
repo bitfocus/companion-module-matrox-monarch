@@ -1,4 +1,5 @@
 const express = require('express')
+const expressBasicAuth = require('express-basic-auth')
 const app = express()
 const port = 80
 
@@ -23,11 +24,18 @@ const sampleResponse = `
   <CCAnalogPresent>False</CCAnalogPresent>
 `;
 
+// Set up HTTP basic auth
+app.use(expressBasicAuth({
+  users: { 'admin': 'admin' }
+}));
+
+// Route API command path
 app.get(apiPath, (request, response) => {
   console.log(`Received request: ${request.originalUrl}`)
   response.send(sampleResponse)
 })
 
+// Start server
 app.listen(port, (err) => {
   if (err) {
     return console.log('something bad happened', err)
