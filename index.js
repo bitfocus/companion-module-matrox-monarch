@@ -79,7 +79,7 @@ instance.prototype.init_presets = function() {
     },
     actions: [
       {
-        action: 'startStopEncoder',
+        action: 'setCommand',
         options: {
           startStop: 'Start',
           encoderNum: 'BothEncoders'
@@ -100,7 +100,7 @@ instance.prototype.init_presets = function() {
     },
     actions: [
       {
-        action: 'startStopEncoder',
+        action: 'setCommand',
         options: {
           startStop: 'Stop',
           encoderNum: 'BothEncoders'
@@ -113,7 +113,7 @@ instance.prototype.init_presets = function() {
 instance.prototype.actions = function(system) {
   var self = this;
   self.system.emit('instance_actions', self.id, {
-    'startStopEncoder': {
+    'setCommand': {
       label: 'Set Command',
       options: [
         {
@@ -177,7 +177,7 @@ instance.prototype.action = function(action) {
   debug('action: ', action);
 
   switch (action.action) {
-    case 'startStopEncoder':
+    case 'setCommand':
       cmd = action.options.startStop + action.options.encoderNum;
     default:
       cmd = 'GetStatus';
