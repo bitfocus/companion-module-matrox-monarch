@@ -108,6 +108,8 @@ instance.prototype.init_presets = function() {
       }
     ]
   });
+
+  self.setPresetDefinitions(presets);
 };
 
 instance.prototype.actions = function(system) {
