@@ -33,5 +33,5 @@ app.listen(port, (err) => {
     return console.log('something bad happened', err)
   }
 
-  console.log(`Monarch emulator is listening on ${port}`)
+  console.log(`Mock Monarch is listening on ${port}`)
 })
