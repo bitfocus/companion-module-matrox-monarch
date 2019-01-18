@@ -19,6 +19,7 @@ function instance(system, id, config) {
   instance_skel.apply(this, arguments);
 
   self.actions(); // export actions
+  self.init_presets();
 
   return self;
 }
@@ -76,7 +77,101 @@ instance.prototype.init_presets = function() {
   var self = this;
   var presets = [];
 
-  // TODO: presets?
+  const white = self.rgb(255, 255, 255);
+  const green = self.rgb(42, 167, 69);
+  const red   = self.rgb(220, 53, 69);
+
+  presets.push({
+    category: 'Commands',
+    label: 'Start Encoder/Recorder 1',
+    bank: {
+      style: 'text',
+      text: 'Start Enc 1',
+      size: '18',
+      color: white,
+      bgcolor: green
+    },
+    actions: [
+      { action: 'startEncoder1' }
+    ]
+  });
+
+  presets.push({
+    category: 'Commands',
+    label: 'Start Encoder/Recorder 2',
+    bank: {
+      style: 'text',
+      text: 'Start Enc 2',
+      size: '18',
+      color: white,
+      bgcolor: green
+    },
+    actions: [
+      { action: 'startEncoder2' }
+    ]
+  });
+
+  presets.push({
+    category: 'Commands',
+    label: 'Start Both Encoder/Recorders',
+    bank: {
+      style: 'text',
+      text: 'Start Both',
+      size: '18',
+      color: white,
+      bgcolor: green
+    },
+    actions: [
+      { action: 'startEncoder1' },
+      { action: 'startEncoder2' }
+    ]
+  });
+
+  presets.push({
+    category: 'Commands',
+    label: 'Stop Encoder/Recorder 1',
+    bank: {
+      style: 'text',
+      text: 'Stop Enc 1',
+      size: '18',
+      color: white,
+      bgcolor: red
+    },
+    actions: [
+      { action: 'stopEncoder1' }
+    ]
+  });
+
+  presets.push({
+    category: 'Commands',
+    label: 'Stop Encoder/Recorder 2',
+    bank: {
+      style: 'text',
+      text: 'Stop Enc 2',
+      size: '18',
+      color: white,
+      bgcolor: red
+    },
+    actions: [
+      { action: 'stopEncoder2' }
+    ]
+  });
+
+  presets.push({
+    category: 'Commands',
+    label: 'Stop Both Encoder/Recorders',
+    bank: {
+      style: 'text',
+      text: 'Stop Both',
+      size: '18',
+      color: white,
+      bgcolor: red
+    },
+    actions: [
+      { action: 'stopEncoder1' },
+      { action: 'stopEncoder2' }
+    ]
+  });
 
   self.setPresetDefinitions(presets);
 };
