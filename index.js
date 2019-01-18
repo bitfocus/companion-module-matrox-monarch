@@ -197,7 +197,7 @@ instance.prototype.action = function(action) {
   });
 
   // Send request
-  log('info', 'Starting request to: ' + requestUrl);
+  self.debug('info', 'Starting request to: ' + requestUrl);
   apiRequest.get(requestUrl, function (error, response, body) {
     self.debug('info', JSON.stringify(error));
     self.debug('info', JSON.stringify(response));
@@ -216,7 +216,7 @@ instance.prototype.action = function(action) {
       return;
     }
 
-    self.log('info', 'Success: ' + action.action);
+    self.debug('info', 'Success: ' + action.action);
   });
 };
 
