@@ -6,10 +6,18 @@ const http = require('http');
 const request = require('request');
 
 const ACTIONS = {
-	'startEncoder1':			{ label: 'Start Encoder 1',			apiCommand: 'StartEncoder1' },
-	'startEncoder2':			{ label: 'Start Encoder 2',			apiCommand: 'StartEncoder2' },
-	'stopEncoder1':				{ label: 'Stop Encoder 1',			apiCommand: 'StopEncoder1'  },
-	'stopEncoder2':				{ label: 'Stop Encoder 2',			apiCommand: 'StopEncoder2'  }
+	'startEncoder1':			{ label: 'HDX: Start Encoder 1',				apiCommand: 'StartEncoder1' },
+	'startEncoder2':			{ label: 'HDX: Start Encoder 2',				apiCommand: 'StartEncoder2' },
+	'stopEncoder1':				{ label: 'HDX: Stop Encoder 1',					apiCommand: 'StopEncoder1'  },
+	'stopEncoder2':				{ label: 'HDX: Stop Encoder 2',					apiCommand: 'StopEncoder2'  },
+	'startBothEncoders':		{ label: 'HDX: Start Both Encoders',			apiCommand: 'StartBothEncoders'  },
+	'stopBothEncoders':			{ label: 'HDX: Stop Both Encoders',				apiCommand: 'StopBothEncoders'  },
+	'startStreaming':			{ label: 'HD: Start Streaming',					apiCommand: 'StartStreaming' },
+	'startRecording':			{ label: 'HD: Start Recording',					apiCommand: 'StartRecording' },
+	'startRecordingStreaming':	{ label: 'HD: Start Recording & Streaming',		apiCommand: 'StartStreamingAndRecording'  },
+	'stopStreaming':			{ label: 'HD: Stop Streaming',					apiCommand: 'StopStreaming' },
+	'stopRecording':			{ label: 'HD: Stop Recording',					apiCommand: 'StopRecording' },
+	'stopRecordingStreaming':	{ label: 'HD: Stop Recording & Streaming',		apiCommand: 'StopStreamingAndRecording'  }
 };
 
 function instance(system, id, config) {
@@ -203,7 +211,7 @@ instance.prototype.action = function(action) {
 		self.debug('info', JSON.stringify(response));
 		self.debug('info', JSON.stringify(body));
 
-		if (error && error.code === 'ETIMEDOUT') {
+		if (error && (error.code === 'ETIMEDOUT' || error.code === 'ENETUNREACH')) {
 			self.log('error', 'Connection timeout while connecting to ' + apiHost);
 			return;
 		}
@@ -216,7 +224,19 @@ instance.prototype.action = function(action) {
 			return;
 		}
 
-		self.debug('info', 'Success: ' + action.action);
+		var retryRegex = /RETRY/
+		if (retryRegex.test(JSON.stringify(body))) {
+		self.log('info', 'Attempting retry');
+		if (retryAttempts < 5) {
+		setTimeout(function(){ self.action(action); }, 2000);
+		retryAttempts++;
+		};
+		return;
+		}	
+
+		self.log('info', 'Success: ' + action.action + JSON.stringify(body));
+		retryAttempts = 0;
+
 	});
 };
 
