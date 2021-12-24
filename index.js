@@ -3,6 +3,7 @@ const configFields = require('./src/configFields')
 const variables = require('./src/variables')
 const polling = require('./src/polling')
 const actions = require('./src/actions')
+const presets = require('./src/presets')
 
 class MonarchInstance extends InstanceSkel {
 	constructor(system, id, config) {
@@ -17,6 +18,7 @@ class MonarchInstance extends InstanceSkel {
 			...variables,
 			...polling,
 			...actions,
+			...presets,
 		})
 	}
 
@@ -39,6 +41,9 @@ class MonarchInstance extends InstanceSkel {
 
 			// Update Variables
 			this.updateVariableDefinitions()
+
+			// Init the presets
+			this.presets()
 
 			// Start polling for settingvalues
 			this.initPolling()

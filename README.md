@@ -4,6 +4,7 @@ A [BitFocus Companion](https://bitfocus.io/companion/) module for interacting
 with Matrox Monarch stream encoder/recorder devices.
 
 This module supports the following devices:
+
 - Matrox Monarch HD
 - Matrox Monarch HDX
 - Matrox Monarch LCS
