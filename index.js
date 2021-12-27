@@ -54,6 +54,11 @@ class MonarchInstance extends InstanceSkel {
 	}
 
 	destroy() {
+		// Cleanup polling
+		if (this.pollingInterval) {
+			clearInterval(this.pollingInterval)
+		}
+
 		this.debug('destroy', this.id)
 	}
 }
