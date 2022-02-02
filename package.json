@@ -1,26 +1,35 @@
 {
-  "name": "matrox-monarch",
-  "version": "1.0.1",
-  "description": "Matrox Monarch",
-  "manufacturer": "Matrox",
-  "product": "Monarch",
-  "shortname": "Monarch",
-  "keywords": [
-    "Stream",
-    "Encode",
-    "Recording"
-  ],
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Todd Eichel <todd@toddeichel.com>",
-  "license": "MIT",
-  "dependencies": {
-    "request": "^2.88.0"
-  },
-  "devDependencies": {
-    "express": "^4.16.4",
-    "express-basic-auth": "^1.1.6"
-  }
+	"name": "matrox-monarch",
+	"version": "1.0.1",
+	"description": "Matrox Monarch",
+	"manufacturer": "Matrox",
+	"product": "Monarch",
+	"shortname": "Monarch",
+	"keywords": [
+		"Stream",
+		"Encode",
+		"Recording"
+	],
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "Todd Eichel <todd@toddeichel.com>",
+	"license": "MIT",
+	"dependencies": {
+		"request": "^2.88.0"
+	},
+	"devDependencies": {
+		"express": "^4.16.4",
+		"express-basic-auth": "^1.1.6"
+	},
+	"homepage": "https://github.com/bitfocus/companion-module-matrox-monarch#readme",
+	"bugs": {
+		"url": "https://github.com/bitfocus/companion-module-matrox-monarch/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/bitfocus/companion-module-matrox-monarch.git"
+	},
+	"api_version": "1.0.0"
 }
