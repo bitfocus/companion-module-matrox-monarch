@@ -1,25 +1,33 @@
 {
 	"name": "matrox-monarch",
-	"version": "1.0.2",
-	"description": "Matrox Monarch",
+	"version": "2.0.0",
+	"description": "Matrox Monarch HD/HDX/LCS",
 	"manufacturer": "Matrox",
-	"product": "Monarch",
+	"product": "Monarch HD/HDX/LCS",
 	"shortname": "Monarch",
 	"keywords": [
 		"Stream",
 		"Encode",
 		"Recording"
+  	"Matrox",
+		"Datavideo"
 	],
 	"main": "index.js",
 	"scripts": {
+    "format": "prettier --write .",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"author": "Todd Eichel <todd@toddeichel.com>",
+	"contributors": [
+		"Bevan Kay <email@bevankay.me>",
+		"Bert Bredewold <bbredewold@gmail.com>"
+	],
 	"license": "MIT",
 	"dependencies": {
-		"request": "^2.88.0"
+		"node-fetch": "^2.6.0"
 	},
 	"devDependencies": {
+    "prettier": "^2.3.2",
 		"express": "^4.16.4",
 		"express-basic-auth": "^1.1.6"
 	},
