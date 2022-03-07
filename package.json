@@ -8,13 +8,13 @@
 	"keywords": [
 		"Stream",
 		"Encode",
-		"Recording",
-		"Matrox",
+		"Recording"
+  	"Matrox",
 		"Datavideo"
 	],
 	"main": "index.js",
 	"scripts": {
-		"format": "prettier --write .",
+    "format": "prettier --write .",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"author": "Todd Eichel <todd@toddeichel.com>",
@@ -27,8 +27,17 @@
 		"node-fetch": "^2.6.0"
 	},
 	"devDependencies": {
-		"prettier": "^2.3.2",
+    "prettier": "^2.3.2",
 		"express": "^4.16.4",
 		"express-basic-auth": "^1.1.6"
-	}
+	},
+	"homepage": "https://github.com/bitfocus/companion-module-matrox-monarch#readme",
+	"bugs": {
+		"url": "https://github.com/bitfocus/companion-module-matrox-monarch/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/bitfocus/companion-module-matrox-monarch.git"
+	},
+	"api_version": "1.0.0"
 }
