@@ -1,37 +1,145 @@
 const Monarch = require('./Monarch')
 
+const sendCommand = async (action) => {
+	try {
+		const connection = new Monarch(this.config)
+		const result = await connection.sendCommand(action)
+		this.log('debug', 'Command result: ' + JSON.stringify(result))
+
+		if (result.status === 'success') {
+			this.updateStatus('ok')
+		} else {
+			this.updateStatus('connection_failure', 'Failed to connect to device')
+		}
+	} catch (error) {
+		let errorText = String(error)
+		if (errorText.match('ECONNREFUSED')) {
+			this.log('error', 'Unable to connect to the streamer...')
+			this.updateStatus('connection_failure', 'Failed to connect to device')
+		} else if (errorText.match('ETIMEDOUT') || errorText.match('ENOTFOUND')) {
+			this.log('error', 'Connection to streamer has timed out...')
+		} else {
+			this.log('error', 'An error has occurred when connecting to streamer...')
+		}
+	}
+}
+
 module.exports = {
 	actions() {
 		switch (this.config.device_type) {
 			case 'monarch-hd':
 			case 'nvs-30':
-				this.setActions({
-					StartStreaming: { label: 'Start Streaming' },
-					StartRecording: { label: 'Start Recording' },
-					StartStreamingAndRecording: { label: 'Start Recording & Streaming' },
-					StopStreaming: { label: 'Stop Streaming' },
-					StopRecording: { label: 'Stop Recording' },
-					StopStreamingAndRecording: { label: 'Stop Recording & Streaming' },
+				this.setActionDefinitions({
+					StartStreaming: {
+						name: 'Start Streaming',
+						options: [],
+						callback: async (event) => {
+							sendCommand(event)
+						},
+					},
+					StartRecording: {
+						name: 'Start Recording',
+						options: [],
+						callback: async (event) => {
+							sendCommand(event)
+						},
+					},
+					StartStreamingAndRecording: {
+						name: 'Start Recording & Streaming',
+						options: [],
+						callback: async (event) => {
+							sendCommand(event)
+						},
+					},
+					StopStreaming: {
+						name: 'Stop Streaming',
+						options: [],
+						callback: async (event) => {
+							sendCommand(event)
+						},
+					},
+					StopRecording: {
+						name: 'Stop Recording',
+						options: [],
+						callback: async (event) => {
+							sendCommand(event)
+						},
+					},
+					StopStreamingAndRecording: {
+						name: 'Stop Recording & Streaming',
+						options: [],
+						callback: async (event) => {
+							sendCommand(event)
+						},
+					},
 				})
 				break
 
 			case 'monarch-hdx':
-				this.setActions({
-					StartEncoder1: { label: 'Start Encoder 1' },
-					StartEncoder2: { label: 'Start Encoder 2' },
-					StopEncoder1: { label: 'Stop Encoder 1' },
-					StopEncoder2: { label: 'Stop Encoder 2' },
-					StartBothEncoders: { label: 'Start Both Encoders' },
-					StopBothEncoders: { label: 'Stop Both Encoders' },
+				this.setActionDefinitions({
+					StartEncoder1: {
+						name: 'Start Encoder 1',
+						options: [],
+						callback: async (event) => {
+							sendCommand(event)
+						},
+					},
+					StartEncoder2: {
+						name: 'Start Encoder 2',
+						options: [],
+						callback: async (event) => {
+							sendCommand(event)
+						},
+					},
+					StopEncoder1: {
+						name: 'Stop Encoder 1',
+						options: [],
+						callback: async (event) => {
+							sendCommand(event)
+						},
+					},
+					StopEncoder2: {
+						name: 'Stop Encoder 2',
+						options: [],
+						callback: async (event) => {
+							sendCommand(event)
+						},
+					},
+					StartBothEncoders: {
+						name: 'Start Both Encoders',
+						options: [],
+						callback: async (event) => {
+							sendCommand(event)
+						},
+					},
+					StopBothEncoders: {
+						name: 'Stop Both Encoders',
+						options: [],
+						callback: async (event) => {
+							sendCommand(event)
+						},
+					},
 				})
 				break
 
 			case 'monarch-lcs':
-				this.setActions({
-					StartBothEncoders: { label: 'Start Encoders' },
-					StopBothEncoders: { label: 'Stop Encoders' },
+				this.setActionDefinitions({
+					StartBothEncoders: {
+						name: 'Start Encoders',
+						options: [],
+						callback: async (event) => {
+							sendCommand(event)
+						},
+					},
+					StopBothEncoders: {
+						name: 'Stop Encoders',
+						options: [],
+						callback: async (event) => {
+							sendCommand(event)
+						},
+					},
 					SetDynamicOutput: {
-						label: 'Set Dymamic Output',
+						name: 'Set Dymamic Output',
 						options: [
 							{
 								type: 'dropdown',
@@ -46,32 +154,11 @@ module.exports = {
 								default: 'SHOW_A',
 							},
 						],
+						callback: async (event) => {
+							sendCommand(event)
+						},
 					},
 				})
-		}
-	},
-
-	async action({ action, options }) {
-		try {
-			const connection = new Monarch(this.config)
-			const result = await connection.sendCommand(action)
-			this.debug('info', result)
-
-			if (result.status === 'success') {
-				this.status(this.STATUS_OK)
-			} else {
-				this.status(this.STATUS_ERROR)
-			}
-		} catch (error) {
-			let errorText = String(error)
-			if (errorText.match('ECONNREFUSED')) {
-				this.log('error', 'Unable to connect to the streamer...')
-				this.status(this.STATUS_ERROR)
-			} else if (errorText.match('ETIMEDOUT') || errorText.match('ENOTFOUND')) {
-				this.log('error', 'Connection to streamer has timed out...')
-			} else {
-				this.log('error', 'An error has occurred when connecting to streamer...')
-			}
 		}
 	},
 }
