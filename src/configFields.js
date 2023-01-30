@@ -1,9 +1,10 @@
+const { Regex } = require('@companion-module/base')
 module.exports = {
 	config_fields() {
 		// eslint-disable-line camelcase
 		return [
 			{
-				type: 'text',
+				type: 'static-text',
 				id: 'info',
 				width: 12,
 				label: 'Information',
@@ -42,7 +43,7 @@ module.exports = {
 				id: 'host',
 				width: 6,
 				label: 'IP Address',
-				regex: this.REGEX_IP,
+				regex: Regex.IP,
 			},
 			{
 				type: 'number',
@@ -50,10 +51,10 @@ module.exports = {
 				width: 6,
 				label: 'Target Port',
 				default: '80',
-				regex: this.REGEX_PORT,
+				regex: Regex.PORT,
 			},
 			{
-				type: 'text',
+				type: 'static-text',
 				id: 'info',
 				width: 12,
 				label: 'Polling',
