@@ -5,20 +5,20 @@ module.exports = {
 			case 'nvs-30':
 				this.setVariableDefinitions([
 					{
-						label: `Recorder Status`,
-						name: `recorder_status`,
+						name: `Recorder Status`,
+						variableId: `recorder_status`,
 					},
 					{
-						label: `Stream Type`,
-						name: `stream_type`,
+						name: `Stream Type`,
+						variableId: `stream_type`,
 					},
 					{
-						label: `Stream Status`,
-						name: `stream_status`,
+						name: `Stream Status`,
+						variableId: `stream_status`,
 					},
 					{
-						label: `Device Name`,
-						name: `name`,
+						name: `Device Name`,
+						variableId: `name`,
 					},
 				])
 				break
@@ -26,24 +26,24 @@ module.exports = {
 			case 'monarch-hdx':
 				this.setVariableDefinitions([
 					{
-						label: `Encoder 1 Type`,
-						name: `encoder_1_type`,
+						name: `Encoder 1 Type`,
+						variableId: `encoder_1_type`,
 					},
 					{
-						label: `Encoder 1 Status`,
-						name: `encoder_1_status`,
+						name: `Encoder 1 Status`,
+						variableId: `encoder_1_status`,
 					},
 					{
-						label: `Encoder 2 Type`,
-						name: `encoder_2_type`,
+						name: `Encoder 2 Type`,
+						variableId: `encoder_2_type`,
 					},
 					{
-						label: `Encoder 2 Status`,
-						name: `encoder_2_status`,
+						name: `Encoder 2 Status`,
+						variableId: `encoder_2_status`,
 					},
 					{
-						label: `Device Name`,
-						name: `name`,
+						name: `Device Name`,
+						variableId: `name`,
 					},
 				])
 				break
@@ -51,28 +51,28 @@ module.exports = {
 			case 'monarch-lcs':
 				this.setVariableDefinitions([
 					{
-						label: `Encoder 1 Type`,
-						name: `encoder_1_type`,
+						name: `Encoder 1 Type`,
+						variableId: `encoder_1_type`,
 					},
 					{
-						label: `Encoder 1 Status`,
-						name: `encoder_1_status`,
+						name: `Encoder 1 Status`,
+						variableId: `encoder_1_status`,
 					},
 					{
-						label: `Encoder 2 Type`,
-						name: `encoder_2_type`,
+						name: `Encoder 2 Type`,
+						variableId: `encoder_2_type`,
 					},
 					{
-						label: `Encoder 2 Status`,
-						name: `encoder_2_status`,
+						name: `Encoder 2 Status`,
+						variableId: `encoder_2_status`,
 					},
 					{
-						label: `Filetransfer State`,
-						name: `filetranfser_state`,
+						name: `Filetransfer State`,
+						variableId: `filetranfser_state`,
 					},
 					{
-						label: `Device Name`,
-						name: `name`,
+						name: `Device Name`,
+						variableId: `name`,
 					},
 				])
 		}
