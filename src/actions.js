@@ -1,31 +1,31 @@
 const Monarch = require('./Monarch')
 
-const sendCommand = async (action) => {
-	try {
-		const connection = new Monarch(this.config)
-		const result = await connection.sendCommand(action)
-		this.log('debug', 'Command result: ' + JSON.stringify(result))
-
-		if (result.status === 'success') {
-			this.updateStatus('ok')
-		} else {
-			this.updateStatus('connection_failure', 'Failed to connect to device')
-		}
-	} catch (error) {
-		let errorText = String(error)
-		if (errorText.match('ECONNREFUSED')) {
-			this.log('error', 'Unable to connect to the streamer...')
-			this.updateStatus('connection_failure', 'Failed to connect to device')
-		} else if (errorText.match('ETIMEDOUT') || errorText.match('ENOTFOUND')) {
-			this.log('error', 'Connection to streamer has timed out...')
-		} else {
-			this.log('error', 'An error has occurred when connecting to streamer...')
-		}
-	}
-}
-
 module.exports = {
 	actions() {
+		const sendCommand = async (action) => {
+			try {
+				const connection = new Monarch(this.config)
+				const result = await connection.sendCommand(action)
+				this.log('debug', 'Command result: ' + JSON.stringify(result))
+
+				if (result.status === 'success') {
+					this.updateStatus('ok')
+				} else {
+					this.updateStatus('connection_failure', 'Failed to connect to device')
+				}
+			} catch (error) {
+				let errorText = String(error)
+				if (errorText.match('ECONNREFUSED')) {
+					this.log('error', 'Unable to connect to the streamer...')
+					this.updateStatus('connection_failure', 'Failed to connect to device')
+				} else if (errorText.match('ETIMEDOUT') || errorText.match('ENOTFOUND')) {
+					this.log('error', 'Connection to streamer has timed out...')
+				} else {
+					this.log('error', 'An error has occurred when connecting to streamer...')
+				}
+			}
+		}
+
 		switch (this.config.device_type) {
 			case 'monarch-hd':
 			case 'nvs-30':
