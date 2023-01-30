@@ -5,6 +5,7 @@ const variables = require('./src/variables')
 const polling = require('./src/polling')
 const actions = require('./src/actions')
 const presets = require('./src/presets')
+const feedbacks = require('./src/feedbacks')
 
 class MonarchInstance extends InstanceBase {
 	constructor(internal) {
@@ -16,6 +17,7 @@ class MonarchInstance extends InstanceBase {
 			...polling,
 			...actions,
 			...presets,
+			...feedbacks,
 		})
 	}
 	async init(config) {
@@ -39,6 +41,9 @@ class MonarchInstance extends InstanceBase {
 
 			// Update Variables
 			this.updateVariableDefinitions()
+
+			// Update Feedbacks
+			this.updateFeedbacks()
 
 			// Init the presets
 			this.presets()
