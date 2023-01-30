@@ -1,6 +1,6 @@
 const { Regex } = require('@companion-module/base')
 module.exports = {
-	config_fields() {
+	getConfigFields() {
 		// eslint-disable-line camelcase
 		return [
 			{

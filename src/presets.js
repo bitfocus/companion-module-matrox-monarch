@@ -2,7 +2,7 @@ const { combineRgb } = require('@companion-module/base')
 
 module.exports = {
 	presets() {
-		const presets = []
+		const presets = {}
 
 		const white = combineRgb(255, 255, 255)
 		const green = combineRgb(42, 167, 69)
