@@ -26,7 +26,7 @@ class MonarchInstance extends InstanceBase {
 		this.config = config
 
 		// Update the config
-		this.configUpdated(config)
+		await this.configUpdated(config)
 	}
 
 	async configUpdated(config) {
