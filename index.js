@@ -1,17 +1,15 @@
-const InstanceSkel = require('../../instance_skel')
+const { InstanceBase, runEntrypoint } = require('@companion-module/base')
+
 const configFields = require('./src/configFields')
 const variables = require('./src/variables')
 const polling = require('./src/polling')
 const actions = require('./src/actions')
 const presets = require('./src/presets')
+const feedbacks = require('./src/feedbacks')
 
-class MonarchInstance extends InstanceSkel {
-	constructor(system, id, config) {
-		super(system, id, config)
-
-		this.config = config
-		this.pollingInterval = undefined
-
+class MonarchInstance extends InstanceBase {
+	constructor(internal) {
+		super(internal)
 		// Assign the methods from the listed files to this class
 		Object.assign(this, {
 			...configFields,
@@ -19,17 +17,19 @@ class MonarchInstance extends InstanceSkel {
 			...polling,
 			...actions,
 			...presets,
+			...feedbacks,
 		})
 	}
+	async init(config) {
+		this.updateStatus('connecting', 'Waiting for Config Confirmation')
 
-	init() {
-		this.status(this.STATUS_UNKNOWN)
+		this.config = config
 
 		// Update the config
-		this.updateConfig()
+		await this.configUpdated(config)
 	}
 
-	updateConfig(config) {
+	async configUpdated(config) {
 		if (config) {
 			this.config = config
 		}
@@ -42,6 +42,9 @@ class MonarchInstance extends InstanceSkel {
 			// Update Variables
 			this.updateVariableDefinitions()
 
+			// Update Feedbacks
+			this.updateFeedbacks()
+
 			// Init the presets
 			this.presets()
 
@@ -49,18 +52,18 @@ class MonarchInstance extends InstanceSkel {
 			this.initPolling()
 
 			// Set status to OK
-			this.status(this.STATUS_OK)
+			this.updateStatus('ok')
 		}
 	}
 
-	destroy() {
+	async destroy() {
 		// Cleanup polling
 		if (this.pollingInterval) {
 			clearInterval(this.pollingInterval)
 		}
 
-		this.debug('destroy', this.id)
+		this.log('debig', 'destroy', this.id)
 	}
 }
 
-module.exports = MonarchInstance
+runEntrypoint(MonarchInstance, [])

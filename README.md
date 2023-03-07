@@ -16,9 +16,9 @@ This module supports the following devices:
 - Stop encoders/recorders
 - LCS: Set Dynamic Output option
 
-## Variables & Polling
+## Variables, Feedbacks & Polling
 
-This module supports polling the GetStatus endpoint, and save the response to module-variables. Polling can be set to various options.
+This module supports polling the GetStatus endpoint, and save the response to module-variables and feedbacks. Polling can be set to various options.
 
 ## Development
 

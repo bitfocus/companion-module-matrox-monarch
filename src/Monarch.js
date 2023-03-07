@@ -22,12 +22,12 @@ class Monarch {
 		}
 	}
 
-	async sendCommand(actionName) {
-		let requestUrl = this.baseUrl + actionName
+	async sendCommand(action) {
+		let requestUrl = this.baseUrl + action.actionId
 
 		// Append data when action is SetDynamicOutput
-		if (actionName === 'SetDynamicOutput') {
-			requestUrl += ',' + options.SetDynamicOutputDropdown
+		if (action === 'SetDynamicOutput') {
+			requestUrl += ',' + action.options.SetDynamicOutputDropdown
 		}
 
 		while (this.shouldRetry) {
