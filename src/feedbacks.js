@@ -10,6 +10,8 @@ module.exports = {
 
 		let feedbacks = {}
 
+		let self = this;
+
 		switch (this.config.device_type) {
 			case 'monarch-hd':
 			case 'nvs-30':
@@ -36,7 +38,7 @@ module.exports = {
 					],
 					callback: function (feedback) {
 						let opt = feedback.options
-						const currentValue = this.getVariableValue(`recorder_status`)
+						const currentValue = self.getVariableValue(`recorder_status`)
 						return currentValue == opt.state
 					},
 				}
@@ -64,7 +66,7 @@ module.exports = {
 					],
 					callback: function (feedback) {
 						let opt = feedback.options
-						const currentValue = this.getVariableValue(`stream_status`)
+						const currentValue = self.getVariableValue(`stream_status`)
 						return currentValue == opt.state
 					},
 				}
@@ -92,7 +94,7 @@ module.exports = {
 					],
 					callback: function (feedback) {
 						let opt = feedback.options
-						const currentValue = this.getVariableValue(`stream_type`)
+						const currentValue = self.getVariableValue(`stream_type`)
 						return currentValue == opt.state
 					},
 				}
@@ -122,7 +124,7 @@ module.exports = {
 					],
 					callback: function (feedback) {
 						let opt = feedback.options
-						const currentValue = this.getVariableValue(`filetranfser_state`)
+						const currentValue = self.getVariableValue(`filetranfser_state`)
 						return currentValue == opt.state
 					},
 				}
@@ -150,7 +152,7 @@ module.exports = {
 					],
 					callback: function (feedback) {
 						let opt = feedback.options
-						const currentValue = this.getVariableValue(`encoder_1_status`)
+						const currentValue = self.getVariableValue(`encoder_1_status`)
 						return currentValue == opt.state
 					},
 				}
@@ -179,7 +181,7 @@ module.exports = {
 					],
 					callback: function (feedback) {
 						let opt = feedback.options
-						const currentValue = this.getVariableValue(`encoder_2_status`)
+						const currentValue = self.getVariableValue(`encoder_2_status`)
 						return currentValue == opt.state
 					},
 				}
@@ -207,7 +209,7 @@ module.exports = {
 					],
 					callback: function (feedback) {
 						let opt = feedback.options
-						const currentValue = this.getVariableValue(`encoder_1_type`)
+						const currentValue = self.getVariableValue(`encoder_1_type`)
 						return currentValue == opt.state
 					},
 				}
@@ -235,7 +237,7 @@ module.exports = {
 					],
 					callback: function (feedback) {
 						let opt = feedback.options
-						const currentValue = this.getVariableValue(`encoder_2_type`)
+						const currentValue = self.getVariableValue(`encoder_2_type`)
 						return currentValue == opt.state
 					},
 				}
@@ -264,7 +266,7 @@ module.exports = {
 					],
 					callback: function (feedback) {
 						let opt = feedback.options
-						const currentValue = this.getVariableValue(`encoder_1_status`)
+						const currentValue = self.getVariableValue(`encoder_1_status`)
 						return currentValue == opt.state
 					},
 				}
@@ -292,7 +294,7 @@ module.exports = {
 					],
 					callback: function (feedback) {
 						let opt = feedback.options
-						const currentValue = this.getVariableValue(`encoder_2_status`)
+						const currentValue = self.getVariableValue(`encoder_2_status`)
 						return currentValue == opt.state
 					},
 				}
@@ -320,7 +322,7 @@ module.exports = {
 					],
 					callback: function (feedback) {
 						let opt = feedback.options
-						const currentValue = this.getVariableValue(`encoder_1_type`)
+						const currentValue = self.getVariableValue(`encoder_1_type`)
 						return currentValue == opt.state
 					},
 				}
@@ -348,7 +350,7 @@ module.exports = {
 					],
 					callback: function (feedback) {
 						let opt = feedback.options
-						const currentValue = this.getVariableValue(`encoder_2_type`)
+						const currentValue = self.getVariableValue(`encoder_2_type`)
 						return currentValue == opt.state
 					},
 				}

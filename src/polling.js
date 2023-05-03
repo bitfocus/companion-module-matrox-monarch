@@ -16,12 +16,22 @@ module.exports = {
 
 			const connection = new Monarch(this.config)
 			this.pollingInterval = setInterval(async () => {
-				const result = await connection.sendCommand('GetStatus')
-				this.log('debug', JSON.stringify(result))
+				let result;
+				try {
+					result = await connection.sendCommand({ actionId: 'GetStatus' })
+					this.log('debug', JSON.stringify(result))
+				} catch (error) {
+					this.updateStatus('connection_failure', 'Failed to connect to device')
+					return
+				}
 
 				if (result.status === 'error') {
 					this.updateStatus('connection_failure', 'Failed to connect to device')
 					return
+				}
+
+				if (!result.response) {
+					this.updateStatus('connection_failure', 'Device returned an empty response')
 				}
 
 				this.updateStatus('ok')
@@ -35,6 +45,9 @@ module.exports = {
 							stream_status: result.response.streamStatus,
 							name: result.response.name,
 						})
+						this.checkFeedbacks('streamState');
+						this.checkFeedbacks('recordState');
+						this.checkFeedbacks('streamMode');
 						break
 
 					case 'monarch-hdx':
@@ -45,6 +58,10 @@ module.exports = {
 							encoder_2_status: result.response.enc2Status,
 							name: result.response.name,
 						})
+						this.checkFeedbacks('encoder1State');
+						this.checkFeedbacks('encoder1Mode');
+						this.checkFeedbacks('encoder2State');
+						this.checkFeedbacks('encoder2Mode');
 						break
 
 					case 'monarch-lcs':
@@ -56,8 +73,15 @@ module.exports = {
 							filetranfser_state: result.response.filetransfer,
 							name: result.response.name,
 						})
+						this.checkFeedbacks('fileTransferState');
+						this.checkFeedbacks('encoder1State');
+						this.checkFeedbacks('encoder1Mode');
+						this.checkFeedbacks('encoder2State');
+						this.checkFeedbacks('encoder2Mode');
 						break
 				}
+
+
 			}, this.config.polling_rate)
 		}
 	},
