@@ -1,6 +1,6 @@
 {
 	"name": "matrox-monarch",
-	"version": "3.0.1",
+	"version": "3.0.2",
 	"main": "index.js",
 	"scripts": {
 		"format": "prettier --write .",
@@ -12,11 +12,10 @@
 		"url": "git+https://github.com/bitfocus/companion-module-matrox-monarch.git"
 	},
 	"dependencies": {
-		"@companion-module/base": "~1.1.0",
-		"node-fetch": "^2.6.0"
+		"@companion-module/base": "~1.4.1"
 	},
 	"devDependencies": {
-		"@companion-module/tools": "^0.5.2",
+		"@companion-module/tools": "^1.2.0",
 		"express": "^4.16.4",
 		"express-basic-auth": "^1.1.6",
 		"prettier": "^2.3.2"

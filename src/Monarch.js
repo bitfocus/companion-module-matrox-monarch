@@ -1,5 +1,3 @@
-const fetch = require('node-fetch')
-
 class Monarch {
 	constructor(config) {
 		const apiHost = config.host
