@@ -23,20 +23,12 @@
 	],
 	"legacyIds": [],
 	"runtime": {
-		"type": "node18",
+		"type": "node26",
 		"api": "nodejs-ipc",
 		"apiVersion": "0.0.0",
 		"entrypoint": "../index.js"
 	},
 	"manufacturer": "Matrox",
-	"products": [
-		"Monarch HD/HDX/LCS"
-	],
-	"keywords": [
-		"Stream",
-		"Encode",
-		"Recording",
-		"Matrox",
-		"Datavideo"
-	]
+	"products": ["Monarch HD/HDX/LCS"],
+	"keywords": ["Stream", "Encode", "Recording", "Matrox", "Datavideo"]
 }
